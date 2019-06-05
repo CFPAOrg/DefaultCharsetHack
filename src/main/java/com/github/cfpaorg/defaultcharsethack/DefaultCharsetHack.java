@@ -2,7 +2,8 @@ package com.github.cfpaorg.defaultcharsethack;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 
@@ -16,16 +17,21 @@ public class DefaultCharsetHack {
     public static final String MOD_NAME = "Default Charset Hack";
     public static final String VERSION = "1.0.0";
 
+    public static final Logger logger = LogManager.getLogger(MOD_ID);
+
     @Mod.EventHandler
     public void construct(FMLConstructionEvent event) {
         try {
-            // Success
+            logger.info("尝试修改默认字符集");
             System.setProperty("file.encoding", "UTF-8");
             Field charset = Charset.class.getDeclaredField("defaultCharset");
             charset.setAccessible(true);
             charset.set(null, null);
+            // Success
+            logger.info("默认字符集修改成功");
         } catch (Exception e) {
             // Fail
+            logger.error("默认字符集修改失败");
         }
     }
 }
