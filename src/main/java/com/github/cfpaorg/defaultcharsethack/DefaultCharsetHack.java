@@ -15,7 +15,7 @@ import java.nio.charset.Charset;
 public class DefaultCharsetHack {
     public static final String MOD_ID = "defaultcharsethack";
     public static final String MOD_NAME = "Default Charset Hack";
-    public static final String VERSION = "1.0.0";
+    public static final String VERSION = "@VERSION@";
 
     public static final Logger logger = LogManager.getLogger(MOD_ID);
 
