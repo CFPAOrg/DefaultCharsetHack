@@ -31,7 +31,7 @@ public class DefaultCharsetHack {
             logger.info("默认字符集修改成功");
         } catch (Exception e) {
             // Fail
-            logger.error("默认字符集修改失败");
+            logger.error("默认字符集修改失败：", e);
         }
     }
 }
