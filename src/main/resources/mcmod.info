@@ -1,0 +1,12 @@
+[
+  {
+    "modid": "defaultcharsethack",
+    "name": "Default Charset Hack",
+    "description": "Forcibly change the default encoding of Java to UTF-8 (This is a dirty hack)",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/CFPAOrg/DefaultCharsetHack",
+    "authorList": ["CFPAOrg"],
+    "credits": "lxy"
+  }
+]
