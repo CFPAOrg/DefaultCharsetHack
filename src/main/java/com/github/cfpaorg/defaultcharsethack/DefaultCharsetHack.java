@@ -22,6 +22,14 @@ public class DefaultCharsetHack {
     @Mod.EventHandler
     public void construct(FMLConstructionEvent event) {
         try {
+            if(Charset.defaultCharset().equals(Charset.forName("utf-8"))){
+                logger.info("当前默认字符集已经是UTF-8");
+                return;
+            }
+        } catch (Exception e) {
+            logger.error("当前系统不支持UTF-8字符集：", e);
+        }
+        try {
             logger.info("尝试修改默认字符集");
             System.setProperty("file.encoding", "UTF-8");
             Field charset = Charset.class.getDeclaredField("defaultCharset");
