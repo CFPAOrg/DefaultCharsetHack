@@ -37,7 +37,7 @@ public class DefaultCharsetHack {
         }
         Field charset = null;
         try {
-            logger.info("尝试修改默认字符集");
+            logger.info(String.format("当前默认字符集为%s, 尝试修改为%s", originCharset.name(), targetCharset.name()));
             System.setProperty("file.encoding", targetCharsetName);
             charset = Charset.class.getDeclaredField("defaultCharset");
             charset.setAccessible(true);
