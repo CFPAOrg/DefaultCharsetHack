@@ -18,28 +18,48 @@ public class DefaultCharsetHack {
     public static final String VERSION = "@VERSION@";
 
     public static final Logger logger = LogManager.getLogger(MOD_ID);
+    
 
     @Mod.EventHandler
     public void construct(FMLConstructionEvent event) {
+        String targetCharsetName = "UTF-8";
+        Charset targetCharset = null;
         try {
-            if(Charset.defaultCharset().equals(Charset.forName("utf-8"))){
-                logger.info("当前默认字符集已经是UTF-8");
-                return;
-            }
+            targetCharset = Charset.forName(targetCharsetName);
         } catch (Exception e) {
-            logger.error("当前系统不支持UTF-8字符集：", e);
+            logger.error(String.format("当前Java虚拟机不支持%s字符集：", targetCharsetName), e);
+            return;
         }
+        Charset originCharset = Charset.defaultCharset();
+        if(originCharset.equals(targetCharset)){
+            logger.info(String.format("当前默认字符集已经是%s", targetCharsetName));
+            return;
+        }
+        Field charset = null;
         try {
             logger.info("尝试修改默认字符集");
-            System.setProperty("file.encoding", "UTF-8");
-            Field charset = Charset.class.getDeclaredField("defaultCharset");
+            System.setProperty("file.encoding", targetCharsetName);
+            charset = Charset.class.getDeclaredField("defaultCharset");
             charset.setAccessible(true);
             charset.set(null, null);
-            // Success
-            logger.info("默认字符集修改成功");
+            if(Charset.defaultCharset().equals(targetCharset)){
+                // Success
+                logger.info("默认字符集修改成功");
+                charset.setAccessible(false);
+                return;
+            } else {
+                logger.error("默认字符集修改失败");
+            }
         } catch (Exception e) {
             // Fail
             logger.error("默认字符集修改失败：", e);
+        }
+        try {
+            // Do some cleaning
+            charset.set(null, originCharset);
+            charset.setAccessible(false);
+        } catch (Exception e) {
+            logger.error("复原过程中发生错误：", e);
         }
     }
 }
