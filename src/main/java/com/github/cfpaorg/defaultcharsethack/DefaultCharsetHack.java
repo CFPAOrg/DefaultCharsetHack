@@ -20,7 +20,8 @@ import java.nio.charset.StandardCharsets;
         name = DefaultCharsetHack.MOD_NAME,
         acceptedMinecraftVersions = "[1.12]",
         version = DefaultCharsetHack.VERSION,
-        dependencies = "before:*")
+        dependencies = "before:*",
+        acceptableRemoteVersions = "*")
 public class DefaultCharsetHack {
     public static final String MOD_ID = "defaultcharsethack";
     public static final String MOD_NAME = "Default Charset Hack";
